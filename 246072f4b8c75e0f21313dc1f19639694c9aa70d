@@ -1,0 +1,5 @@
+- initial revision
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
