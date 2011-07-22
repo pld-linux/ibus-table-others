@@ -1,7 +1,7 @@
 Summary:	Various tables for IBus-Table
 Name:		ibus-table-others
 Version:	1.3.0.20100907
-Release:	0.1
+Release:	1
 License:	GPL v3
 Group:		Libraries
 Source0:	http://nkumar.fedorapeople.org/ibus-table-others/%{name}-%{version}.tar.bz2
