@@ -1,4 +1,5 @@
-Summary:	Various tables for IBus-Table
+Summary:	Various tables for IBus Table engine
+Summary(pl.UTF-8):	Różne tablice dla silnika IBus Table
 Name:		ibus-table-others
 Version:	1.3.0.20100907
 Release:	1
@@ -6,67 +7,101 @@ License:	GPL v3
 Group:		Libraries
 Source0:	http://nkumar.fedorapeople.org/ibus-table-others/%{name}-%{version}.tar.bz2
 # Source0-md5:	a6866d910853038a20c5c0b0dea8ee0c
+Patch0:		%{name}-emoji.patch
 URL:		http://github.com/moebiuscurve/ibus-table-others
-BuildRequires:	ibus-table-devel
-Requires:	ibus-table
+BuildRequires:	ibus-table-devel >= 1.2.0
+Requires:	ibus-table >= 1.2.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-The package contains various IBus-Tables which include languages of
-Latin-America, Europe, Southeast Asia, as well as math and other
-symbols.
+ibus-table-others contains various IBus-Tables which include languages
+of Latin-America, Europe, Southeast Asia, as well as math and other
+symbols. The actual tables are in individual ibus-table-* packages.
+
+%description -l pl.UTF-8
+ibus-table-others zawiera różne tablice dla silnika IBus Table,
+obejmujące języki Ameryki Łacińskiej, Europy, Azji
+Południowo-Wschodniej, a także symbole matematyczne i inne. Właściwe
+tablice są w poszczególnych pakietach ibus-table-*.
 
 %package -n ibus-table-code
-Summary:	Ibus-Tables for Latex, CNS11643 & Emoji
+Summary:	Ibus-Tables for LaTeX, CNS11643 & Emoji
+Summary(pl.UTF-8):	Tablice IBus Table dla LaTeXa, CNS11643 i Emoji
 Group:		Libraries
-Requires:	ibus-table
+Requires:	ibus-table >= 1.2.0
 
 %description -n ibus-table-code
-The package contains ibus-tables for Latex, CNS11643, Emoji.
+The package contains ibus-tables for LaTeX, CNS11643, Emoji.
+
+%description -n ibus-table-code -l pl.UTF-8
+Ten pakiet zawiera tablice IBus Table dla LaTeXa, CNS11643 i Emoji.
 
 %package -n ibus-table-cyrillic
 Summary:	Ibus-Tables for Cyrillic
+Summary(pl.UTF-8):	Tablice IBus Table dla cyrylicy
 Group:		Libraries
-Requires:	ibus-table
+Requires:	ibus-table >= 1.2.0
 
 %description -n ibus-table-cyrillic
 The Cyrillic rustrad & yawerty tables for IBus Table.
 
+%description -n ibus-table-cyrillic -l pl.UTF-8
+Tablice cyrylicy rustrad i yawerty dla silnika IBus Table.
+
 %package -n ibus-table-latin
 Summary:	Ibus-Tables for Latin
+Summary(pl.UTF-8):	Tablice IBus Table dla łacinki
 Group:		Libraries
-Requires:	ibus-table
+Requires:	ibus-table >= 1.2.0
 
 %description -n ibus-table-latin
 The Latin compose & ipa-x-sampa tables for Ibus-Table.
 
+%description -n ibus-table-latin -l pl.UTF-8
+Tablice łacińskie compose oraz ipa-x-sampa dla silnika IBus Table.
+
+%package -n ibus-table-mathwriter
+Summary:	Ibus-Tables for Unicode mathematics symbols
+Summary(pl.UTF-8):	Tablice IBus Table dla unikodowych symboli matematycznych
+Group:		Libraries
+Requires:	ibus-table >= 1.2.0
+
+%description -n ibus-table-mathwriter
+The package contains IBus Table for writing Unicode mathematics
+symbols.
+
+%description -n ibus-table-mathwriter -l pl.UTF-8
+Ten pakiet zawiera tablicę IBus Table do pisania przy użyciu
+unikodowych symboli matematycznych.
+
 %package -n ibus-table-translit
 Summary:	Ibus-Tables for Russian Translit
+Summary(pl.UTF-8):	Tablice IBus Table dla transliteracji rosyjskiej
 Group:		Libraries
-Requires:	ibus-table
+Requires:	ibus-table >= 1.2.0
 
 %description -n ibus-table-translit
 The Cyrillic translit & translit-ua tables for IBus-Table.
 
+%description -n ibus-table-translit -l pl.UTF-8
+Tablice cyrylicy translit i translit-ua dla silnika IBus Table.
+
 %package -n ibus-table-tv
 Summary:	Ibus-Tables for Thai and Viqr (Vietnamese)
+Summary(pl.UTF-8):	Tablice IBus Table dla tajskiego i wietnamskiego
 Group:		Libraries
-Requires:	ibus-table
+Requires:	ibus-table >= 1.2.0
 
 %description -n ibus-table-tv
 The Thai and Viqr (Vietnamese) tables for IBus-Table.
 
-%package -n ibus-table-mathwriter
-Summary:	Ibus-Tables for Unicode mathematics symbols
-Group:		Libraries
-Requires:	ibus-table
-
-%description -n ibus-table-mathwriter
-The package contains table for writing Unicode mathematics symbols.
+%description -n ibus-table-tv -l pl.UTF-8
+Tablice tajska i Viqr (wietnamska) dla silnika IBus Table.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure \
@@ -90,16 +125,16 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-for db in $RPM_BUILD_ROOT/%{_datadir}/ibus-table/tables/*.db ; do
+for db in $RPM_BUILD_ROOT%{_datadir}/ibus-table/tables/*.db ; do
 	%{_bindir}/ibus-table-createdb -i -n $db
 done
 
-%if 0
-# no useful info here
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS README
-%endif
+%doc AUTHORS ChangeLog NEWS README
 
 %files -n ibus-table-code
 %defattr(644,root,root,755)
@@ -124,6 +159,11 @@ done
 %{_datadir}/ibus-table/icons/compose.svg
 %{_datadir}/ibus-table/icons/ipa-x-sampa.png
 
+%files -n ibus-table-mathwriter
+%defattr(644,root,root,755)
+%{_datadir}/ibus-table/tables/mathwriter-ibus.db
+%{_datadir}/ibus-table/icons/mathwriter.png
+
 %files -n ibus-table-translit
 %defattr(644,root,root,755)
 %{_datadir}/ibus-table/tables/translit.db
@@ -137,8 +177,3 @@ done
 %{_datadir}/ibus-table/tables/viqr.db
 %{_datadir}/ibus-table/icons/thai.png
 %{_datadir}/ibus-table/icons/viqr.png
-
-%files -n ibus-table-mathwriter
-%defattr(644,root,root,755)
-%{_datadir}/ibus-table/tables/mathwriter-ibus.db
-%{_datadir}/ibus-table/icons/mathwriter.png
