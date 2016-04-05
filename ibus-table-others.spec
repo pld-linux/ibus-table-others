@@ -1,15 +1,16 @@
 Summary:	Various tables for IBus Table engine
 Summary(pl.UTF-8):	Różne tablice dla silnika IBus Table
 Name:		ibus-table-others
-Version:	1.3.0.20100907
+Version:	1.3.7
 Release:	1
 License:	GPL v3
 Group:		Libraries
-Source0:	http://nkumar.fedorapeople.org/ibus-table-others/%{name}-%{version}.tar.bz2
-# Source0-md5:	a6866d910853038a20c5c0b0dea8ee0c
-Patch0:		%{name}-emoji.patch
+#Source0Download: https://github.com/moebiuscurve/ibus-table-others/releases
+Source0:	https://github.com/moebiuscurve/ibus-table-others/releases/download/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	1a61e6d6e147fad2b753374c08d5509a
 URL:		http://github.com/moebiuscurve/ibus-table-others
 BuildRequires:	ibus-table-devel >= 1.2.0
+BuildRequires:	python3 >= 1:3.3
 Requires:	ibus-table >= 1.2.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -101,7 +102,6 @@ Tablice tajska i Viqr (wietnamska) dla silnika IBus Table.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure \
@@ -110,6 +110,7 @@ Tablice tajska i Viqr (wietnamska) dla silnika IBus Table.
 	--enable-emoji \
 	--enable-ipaxsampa \
 	--enable-latex \
+	--enable-rusle \
 	--enable-rustrad \
 	--enable-thai \
 	--enable-translit \
@@ -147,8 +148,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ibus-table-cyrillic
 %defattr(644,root,root,755)
+%{_datadir}/ibus-table/tables/rusle.db
 %{_datadir}/ibus-table/tables/rustrad.db
 %{_datadir}/ibus-table/tables/yawerty.db
+%{_datadir}/ibus-table/icons/rusle.png
 %{_datadir}/ibus-table/icons/rustrad.png
 %{_datadir}/ibus-table/icons/yawerty.png
 
@@ -157,7 +160,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/ibus-table/tables/compose.db
 %{_datadir}/ibus-table/tables/ipa-x-sampa.db
 %{_datadir}/ibus-table/icons/compose.svg
-%{_datadir}/ibus-table/icons/ipa-x-sampa.png
+%{_datadir}/ibus-table/icons/ipa-x-sampa.svg
 
 %files -n ibus-table-mathwriter
 %defattr(644,root,root,755)
@@ -168,8 +171,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/ibus-table/tables/translit.db
 %{_datadir}/ibus-table/tables/translit-ua.db
-%{_datadir}/ibus-table/icons/translit.png
-%{_datadir}/ibus-table/icons/translit-ua.png
+%{_datadir}/ibus-table/icons/translit.svg
+%{_datadir}/ibus-table/icons/translit-ua.svg
 
 %files -n ibus-table-tv
 %defattr(644,root,root,755)
