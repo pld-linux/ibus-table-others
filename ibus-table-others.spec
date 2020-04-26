@@ -1,13 +1,13 @@
 Summary:	Various tables for IBus Table engine
 Summary(pl.UTF-8):	Różne tablice dla silnika IBus Table
 Name:		ibus-table-others
-Version:	1.3.7
+Version:	1.3.11
 Release:	1
 License:	GPL v3
 Group:		Libraries
 #Source0Download: https://github.com/moebiuscurve/ibus-table-others/releases
 Source0:	https://github.com/moebiuscurve/ibus-table-others/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	1a61e6d6e147fad2b753374c08d5509a
+# Source0-md5:	a8bbcb99ce6a4da411dfa3caa56a5389
 URL:		http://github.com/moebiuscurve/ibus-table-others
 BuildRequires:	ibus-table-devel >= 1.2.0
 BuildRequires:	python3 >= 1:3.3
@@ -89,16 +89,18 @@ The Cyrillic translit & translit-ua tables for IBus-Table.
 Tablice cyrylicy translit i translit-ua dla silnika IBus Table.
 
 %package -n ibus-table-tv
-Summary:	Ibus-Tables for Thai and Viqr (Vietnamese)
+Summary:	Ibus-Tables for Thai and Vietnamese
 Summary(pl.UTF-8):	Tablice IBus Table dla tajskiego i wietnamskiego
 Group:		Libraries
 Requires:	ibus-table >= 1.2.0
 
 %description -n ibus-table-tv
-The Thai and Viqr (Vietnamese) tables for IBus-Table.
+The Thai and Vietnamese (Telex, VNI, Viqr methods) tables for
+IBus-Table.
 
 %description -n ibus-table-tv -l pl.UTF-8
-Tablice tajska i Viqr (wietnamska) dla silnika IBus Table.
+Tablice tajska i wietnamskie (metody Telex, VNI, Viqr) dla silnika
+IBus Table.
 
 %prep
 %setup -q
@@ -158,8 +160,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ibus-table-latin
 %defattr(644,root,root,755)
 %{_datadir}/ibus-table/tables/compose.db
+%{_datadir}/ibus-table/tables/hu-old-hungarian-rovas.db
 %{_datadir}/ibus-table/tables/ipa-x-sampa.db
 %{_datadir}/ibus-table/icons/compose.svg
+%{_datadir}/ibus-table/icons/hu-old-hungarian-rovas.svg
 %{_datadir}/ibus-table/icons/ipa-x-sampa.svg
 
 %files -n ibus-table-mathwriter
@@ -176,7 +180,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ibus-table-tv
 %defattr(644,root,root,755)
+%{_datadir}/ibus-table/tables/telex.db
 %{_datadir}/ibus-table/tables/thai.db
 %{_datadir}/ibus-table/tables/viqr.db
+%{_datadir}/ibus-table/tables/vni.db
+%{_datadir}/ibus-table/icons/telex.png
 %{_datadir}/ibus-table/icons/thai.png
 %{_datadir}/ibus-table/icons/viqr.png
+%{_datadir}/ibus-table/icons/vni.png
