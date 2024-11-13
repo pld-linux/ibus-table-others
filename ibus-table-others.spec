@@ -1,13 +1,13 @@
 Summary:	Various tables for IBus Table engine
 Summary(pl.UTF-8):	Różne tablice dla silnika IBus Table
 Name:		ibus-table-others
-Version:	1.3.11
+Version:	1.3.18
 Release:	1
 License:	GPL v3
 Group:		Libraries
 #Source0Download: https://github.com/moebiuscurve/ibus-table-others/releases
 Source0:	https://github.com/moebiuscurve/ibus-table-others/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	a8bbcb99ce6a4da411dfa3caa56a5389
+# Source0-md5:	4c04aa69a5f91a768e55f84cc79095f4
 URL:		http://github.com/moebiuscurve/ibus-table-others
 BuildRequires:	ibus-table-devel >= 1.2.0
 BuildRequires:	python3 >= 1:3.3
@@ -76,6 +76,20 @@ symbols.
 Ten pakiet zawiera tablicę IBus Table do pisania przy użyciu
 unikodowych symboli matematycznych.
 
+%package -n ibus-table-mongol
+Summary:	Ibus-Tables for Mongol script
+Summary(pl.UTF-8):	Tablice IBus Table dla pisma mongolskiego
+Group:		Libraries
+Requires:	ibus-table >= 1.2.0
+
+%description -n ibus-table-mongol
+The package contains a table for transliterating Latin Script to
+Mongol Script.
+
+%description -n ibus-table-mongol -l pl.UTF-8
+Ten pakiet zawiera tablicę do transliteracji pisma łacińskiego na
+pismo mongolskie.
+
 %package -n ibus-table-translit
 Summary:	Ibus-Tables for Russian Translit
 Summary(pl.UTF-8):	Tablice IBus Table dla transliteracji rosyjskiej
@@ -106,10 +120,11 @@ IBus Table.
 %setup -q
 
 %build
-%configure \
+%configure
+%if 0
 	--enable-cns11643 \
 	--enable-compose \
-	--enable-emoji \
+	--enable-emoticon \
 	--enable-ipaxsampa \
 	--enable-latex \
 	--enable-rusle \
@@ -120,6 +135,7 @@ IBus Table.
 	--enable-viqr \
 	--enable-yawerty \
 	--enable-mathwriter
+%endif
 
 %{__make}
 
@@ -143,10 +159,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/ibus-table/tables/latex.db
 %{_datadir}/ibus-table/tables/cns11643.db
-%{_datadir}/ibus-table/tables/emoji-table.db
+%{_datadir}/ibus-table/tables/emoticon-table.db
 %{_datadir}/ibus-table/icons/latex.svg
 %{_datadir}/ibus-table/icons/cns11643.png
-%{_datadir}/ibus-table/icons/ibus-emoji.svg
+%{_datadir}/ibus-table/icons/ibus-emoticon.svg
 
 %files -n ibus-table-cyrillic
 %defattr(644,root,root,755)
@@ -170,6 +186,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/ibus-table/tables/mathwriter-ibus.db
 %{_datadir}/ibus-table/icons/mathwriter.png
+
+%files -n ibus-table-mongol
+%defattr(644,root,root,755)
+%{_datadir}/ibus-table/tables/mongol_bichig.db
+%{_datadir}/ibus-table/icons/mongol_bichig.svg
 
 %files -n ibus-table-translit
 %defattr(644,root,root,755)
